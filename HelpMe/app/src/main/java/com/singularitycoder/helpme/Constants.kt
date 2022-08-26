@@ -2,10 +2,59 @@ package com.singularitycoder.helpme
 
 const val TAG_ADD_API_KEY_BOTTOM_SHEET = "TAG_ADD_API_KEY_BOTTOM_SHEET"
 
+val temperatureRange = (0.0)..(1.0)
+val lengthRange = 1..2048
+val topPRange = (0.0)..(1.0)
+val frequencyPenaltyRange = (0.0)..(2.0)
+val presencePenaltyRange = (0.0)..(2.0)
+val bestOfRange = 1..20
+
+sealed class OpenAiFilters {
+    data class Temperature(
+        val range: ClosedFloatingPointRange<Double> = (0.0)..(1.0)
+    ) : OpenAiFilters()
+
+    data class Length(
+        val range: IntRange = 1..2048
+    ) : OpenAiFilters()
+
+    data class TopP(
+        val range: ClosedFloatingPointRange<Double> = (0.0)..(1.0)
+    ) : OpenAiFilters()
+
+    data class FrequencyPenalty(
+        val range: ClosedFloatingPointRange<Double> = (0.0)..(2.0)
+    ) : OpenAiFilters()
+
+    data class PresencePenalty(
+        val range: ClosedFloatingPointRange<Double> = (0.0)..(2.0)
+    ) : OpenAiFilters()
+
+    data class BestOf(
+        val range: IntRange = 1..20
+    ) : OpenAiFilters()
+}
+
+enum class OpenAiModels(val model: String) {
+    TEXT_DAVINCI_002(model = "text-davinci-002"),
+    CODE_DAVINCI_002(model = "code-davinci-002"),
+    TEXT_CURIE_001(model = "text-curie-001"),
+    TEXT_BABBAGE_001(model = "text-babbage-001"),
+    TEXT_ADA_001(model = "text-ada-001"),
+    TEXT_DAVINCI_001(model = "text-davinci-001"),
+    DAVINCI_INSTRUCT_BETA(model = "davinci-instruct-beta"),
+    DAVINCI(model = "davinci"),
+    CURIE_INSTRUCT_BETA(model = "curie-instruct-beta"),
+    CURIE(model = "curie"),
+    BABBAGE(model = "babbage"),
+    ADA(model = "ada"),
+    CURIE_SIMILARITY_FAST(model = "curie-similarity-fast"),
+}
+
 // Is there a way to iterate over color values?
-val taskList by lazy {
+val assistantLists by lazy {
     listOf(
-        Task(
+        Assistant(
             id = 0,
             name = "Q & A",
             description = "Answer questions based on existing knowledge.",
@@ -14,8 +63,15 @@ val taskList by lazy {
             nameColor = R.color.md_red_dark,
             descriptionColor = R.color.md_red_400,
             iconColor = R.color.md_red_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 100,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\n")
         ),
-        Task(
+        Assistant(
             id = 1,
             name = "Grammar correction",
             description = "Corrects sentences into standard English.",
@@ -24,8 +80,14 @@ val taskList by lazy {
             nameColor = R.color.md_pink_dark,
             descriptionColor = R.color.md_pink_400,
             iconColor = R.color.md_pink_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 2,
             name = "Summarize for a 2nd grader",
             description = "Translates difficult text into simpler concepts.",
@@ -34,8 +96,14 @@ val taskList by lazy {
             nameColor = R.color.md_purple_dark,
             descriptionColor = R.color.md_purple_400,
             iconColor = R.color.md_purple_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.7,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 3,
             name = "Natural language to OpenAI API",
             description = "Create code to call to the OpenAI API using a natural language instruction.",
@@ -44,8 +112,15 @@ val taskList by lazy {
             nameColor = R.color.md_deep_purple_dark,
             descriptionColor = R.color.md_deep_purple_400,
             iconColor = R.color.md_deep_purple_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\"\"\"")
         ),
-        Task(
+        Assistant(
             id = 4,
             name = "Text to command",
             description = "Translate text into programmatic commands.",
@@ -54,8 +129,15 @@ val taskList by lazy {
             nameColor = R.color.md_indigo_dark,
             descriptionColor = R.color.md_indigo_400,
             iconColor = R.color.md_indigo_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 100,
+            topP = 1.0,
+            frequencyPenalty = 0.2,
+            presencePenalty = 0.0,
+            stop = arrayOf("\n")
         ),
-        Task(
+        Assistant(
             id = 5,
             name = "English to other languages",
             description = "Translates English text into French, Spanish and Japanese.",
@@ -64,8 +146,14 @@ val taskList by lazy {
             nameColor = R.color.md_blue_dark,
             descriptionColor = R.color.md_blue_400,
             iconColor = R.color.md_blue_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 100,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Natural language to Stripe API",
             description = "Create code to call the Stripe API using natural language.",
@@ -74,8 +162,15 @@ val taskList by lazy {
             nameColor = R.color.md_light_blue_dark,
             descriptionColor = R.color.md_light_blue_400,
             iconColor = R.color.md_light_blue_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 100,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\"\"\"")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "SQL translate",
             description = "Translate natural language to SQL queries.",
@@ -84,8 +179,15 @@ val taskList by lazy {
             nameColor = R.color.md_cyan_dark,
             descriptionColor = R.color.md_cyan_400,
             iconColor = R.color.md_cyan_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 150,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("#", ";")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Parse unstructured data",
             description = "Create tables from long form text by specifying a structure and supplying some examples.",
@@ -94,8 +196,14 @@ val taskList by lazy {
             nameColor = R.color.md_teal_dark,
             descriptionColor = R.color.md_teal_400,
             iconColor = R.color.md_teal_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 100,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Classification",
             description = "Classify items into categories via example.",
@@ -104,8 +212,14 @@ val taskList by lazy {
             nameColor = R.color.md_green_dark,
             descriptionColor = R.color.md_green_400,
             iconColor = R.color.md_green_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Python to natural language",
             description = "Explain a piece of Python code in human understandable language.",
@@ -114,8 +228,14 @@ val taskList by lazy {
             nameColor = R.color.md_light_green_dark,
             descriptionColor = R.color.md_light_green_400,
             iconColor = R.color.md_light_green_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Movie to Emoji",
             description = "Convert movie titles into emoji.",
@@ -124,8 +244,15 @@ val taskList by lazy {
             nameColor = R.color.md_lime_dark,
             descriptionColor = R.color.md_lime_400,
             iconColor = R.color.md_lime_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.8,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\n")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Calculate Time Complexity",
             description = "Find the time complexity of a function.",
@@ -134,8 +261,15 @@ val taskList by lazy {
             nameColor = R.color.md_yellow_dark,
             descriptionColor = R.color.md_yellow_400,
             iconColor = R.color.md_yellow_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\n")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Translate programming languages",
             description = "To translate from one programming language to another we can use the comments to specify the source and target languages.",
@@ -144,8 +278,15 @@ val taskList by lazy {
             nameColor = R.color.md_amber_dark,
             descriptionColor = R.color.md_amber_400,
             iconColor = R.color.md_amber_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 54,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("###")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Advanced tweet classifier",
             description = "This is an advanced prompt for detecting sentiment. It allows you to provide it with a list of status updates and then provide a sentiment for each one.",
@@ -154,8 +295,14 @@ val taskList by lazy {
             nameColor = R.color.md_orange_dark,
             descriptionColor = R.color.md_orange_400,
             iconColor = R.color.md_orange_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Explain code",
             description = "Explain a complicated piece of code.",
@@ -164,8 +311,15 @@ val taskList by lazy {
             nameColor = R.color.md_deep_orange_dark,
             descriptionColor = R.color.md_deep_orange_400,
             iconColor = R.color.md_deep_orange_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\"\"\"")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Keywords",
             description = "Extract keywords from a block of text. At a lower temperature it picks keywords from the text. At a higher temperature it will generate related keywords which can be helpful for creating search indexes.",
@@ -174,8 +328,14 @@ val taskList by lazy {
             nameColor = R.color.md_brown_900,
             descriptionColor = R.color.md_brown_400,
             iconColor = R.color.md_brown_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.8,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Factual answering",
             description = "Guide the model towards factual answering by showing it how to respond to questions that fall outside its knowledge base. Using a '?' to indicate a response to words and phrases that it doesn't know provides a natural response that seems to work better than more abstract replies.",
@@ -184,8 +344,14 @@ val taskList by lazy {
             nameColor = R.color.md_grey_900,
             descriptionColor = R.color.md_grey_400,
             iconColor = R.color.md_grey_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Ad from product description",
             description = "Turn a product description into ad copy.",
@@ -194,8 +360,14 @@ val taskList by lazy {
             nameColor = R.color.md_blue_grey_900,
             descriptionColor = R.color.md_blue_grey_400,
             iconColor = R.color.md_blue_grey_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Product name generator",
             description = "Create product names from examples words. Influenced by a community prompt.",
@@ -204,8 +376,14 @@ val taskList by lazy {
             nameColor = R.color.md_grey_900,
             descriptionColor = R.color.md_grey_400,
             iconColor = R.color.md_grey_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.8,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "TL;DR summarization",
             description = "Summarize text by adding a 'tl;dr:' to the end of a text passage. It shows that the API understands how to perform a number of tasks with no instructions.",
@@ -214,8 +392,14 @@ val taskList by lazy {
             nameColor = R.color.md_brown_900,
             descriptionColor = R.color.md_brown_400,
             iconColor = R.color.md_brown_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.7,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Python bug fixer",
             description = "There's a number of ways of structuring the prompt for checking for bugs. Here we add a comment suggesting that source code is buggy, and then ask codex to generate a fixed code.",
@@ -224,8 +408,15 @@ val taskList by lazy {
             nameColor = R.color.md_deep_orange_dark,
             descriptionColor = R.color.md_deep_orange_400,
             iconColor = R.color.md_deep_orange_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 182,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("###")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Spreadsheet creator",
             description = "Create spreadsheets of various kinds of data. It's a long prompt but very versatile. Output can be copy+pasted into a text file and saved as a .csv with pipe separators.",
@@ -234,8 +425,14 @@ val taskList by lazy {
             nameColor = R.color.md_orange_dark,
             descriptionColor = R.color.md_orange_400,
             iconColor = R.color.md_orange_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "JavaScript helper chatbot",
             description = "This is a message-style chatbot that can answer questions about using JavaScript. It uses a few examples to get the conversation started.",
@@ -244,8 +441,15 @@ val taskList by lazy {
             nameColor = R.color.md_amber_dark,
             descriptionColor = R.color.md_amber_400,
             iconColor = R.color.md_amber_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.5,
+            presencePenalty = 0.0,
+            stop = arrayOf("You:")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "ML/AI language model tutor",
             description = "This is a QA-style chatbot that answers questions about language models.",
@@ -254,8 +458,15 @@ val taskList by lazy {
             nameColor = R.color.md_yellow_dark,
             descriptionColor = R.color.md_yellow_400,
             iconColor = R.color.md_yellow_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.5,
+            presencePenalty = 0.0,
+            stop = arrayOf("You:")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Science fiction book list maker",
             description = "This makes a list of science fiction books and stops when it reaches #10.",
@@ -264,8 +475,14 @@ val taskList by lazy {
             nameColor = R.color.md_lime_dark,
             descriptionColor = R.color.md_lime_400,
             iconColor = R.color.md_lime_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 200,
+            topP = 1.0,
+            frequencyPenalty = 0.52,
+            presencePenalty = 0.5,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Tweet classifier",
             description = "This is a basic prompt for detecting sentiment.",
@@ -274,8 +491,14 @@ val taskList by lazy {
             nameColor = R.color.md_light_green_dark,
             descriptionColor = R.color.md_light_green_400,
             iconColor = R.color.md_light_green_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.5,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Airport code extractor",
             description = "A simple prompt for extracting airport codes from text.",
@@ -284,8 +507,15 @@ val taskList by lazy {
             nameColor = R.color.md_green_dark,
             descriptionColor = R.color.md_green_400,
             iconColor = R.color.md_green_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\n")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "SQL request",
             description = "Create simple SQL queries.",
@@ -294,8 +524,14 @@ val taskList by lazy {
             nameColor = R.color.md_teal_dark,
             descriptionColor = R.color.md_teal_400,
             iconColor = R.color.md_teal_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Extract contact information",
             description = "Extract contact information from a block of text.",
@@ -304,8 +540,14 @@ val taskList by lazy {
             nameColor = R.color.md_cyan_dark,
             descriptionColor = R.color.md_cyan_400,
             iconColor = R.color.md_cyan_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "JavaScript to Python",
             description = "Convert simple JavaScript expressions into Python.",
@@ -314,8 +556,14 @@ val taskList by lazy {
             nameColor = R.color.md_light_blue_dark,
             descriptionColor = R.color.md_light_blue_400,
             iconColor = R.color.md_light_blue_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Friend chat",
             description = "Emulate a text message conversation.",
@@ -324,8 +572,15 @@ val taskList by lazy {
             nameColor = R.color.md_blue_dark,
             descriptionColor = R.color.md_blue_400,
             iconColor = R.color.md_blue_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.5,
+            presencePenalty = 0.0,
+            stop = arrayOf("You:")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Mood to color",
             description = "Turn a text description into a color.",
@@ -334,8 +589,15 @@ val taskList by lazy {
             nameColor = R.color.md_indigo_dark,
             descriptionColor = R.color.md_indigo_400,
             iconColor = R.color.md_indigo_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf(";")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Write a Python docstring",
             description = "An example of how to create a docstring for a given Python function. We specify the Python version, paste in the code, and then ask within a comment for a docstring, and give a characteristic beginning of a docstring (\"\"\").",
@@ -344,8 +606,15 @@ val taskList by lazy {
             nameColor = R.color.md_deep_purple_dark,
             descriptionColor = R.color.md_deep_purple_400,
             iconColor = R.color.md_deep_purple_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 150,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("#", "\"\"\"")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Analogy maker",
             description = "Create analogies. Modified from a community prompt to require fewer examples.",
@@ -354,8 +623,14 @@ val taskList by lazy {
             nameColor = R.color.md_purple_dark,
             descriptionColor = R.color.md_purple_400,
             iconColor = R.color.md_purple_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "JavaScript one line function",
             description = "Turn a JavaScript function into a one liner.",
@@ -364,8 +639,15 @@ val taskList by lazy {
             nameColor = R.color.md_pink_dark,
             descriptionColor = R.color.md_pink_400,
             iconColor = R.color.md_pink_400,
+            aiModel = OpenAiModels.CODE_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf(";")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Micro horror story creator",
             description = "Creates two to three sentence short horror stories from a topic input.",
@@ -374,8 +656,14 @@ val taskList by lazy {
             nameColor = R.color.md_red_dark,
             descriptionColor = R.color.md_red_400,
             iconColor = R.color.md_red_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.8,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.5,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Third-person converter",
             description = "Converts first-person POV to the third-person. This is modified from a community prompt to use fewer examples.",
@@ -384,8 +672,14 @@ val taskList by lazy {
             nameColor = R.color.md_pink_dark,
             descriptionColor = R.color.md_pink_400,
             iconColor = R.color.md_pink_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Notes to summary",
             description = "Turn meeting notes into a summary.",
@@ -394,8 +688,14 @@ val taskList by lazy {
             nameColor = R.color.md_purple_dark,
             descriptionColor = R.color.md_purple_400,
             iconColor = R.color.md_purple_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "VR fitness idea generator",
             description = "Create ideas for fitness and virtual reality games.",
@@ -404,8 +704,14 @@ val taskList by lazy {
             nameColor = R.color.md_deep_purple_dark,
             descriptionColor = R.color.md_deep_purple_400,
             iconColor = R.color.md_deep_purple_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.6,
+            maxTokens = 150,
+            topP = 1.0,
+            frequencyPenalty = 1.0,
+            presencePenalty = 1.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "ESRB rating",
             description = "Categorize text based upon ESRB ratings.",
@@ -414,8 +720,15 @@ val taskList by lazy {
             nameColor = R.color.md_indigo_dark,
             descriptionColor = R.color.md_indigo_400,
             iconColor = R.color.md_indigo_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 60,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
+            stop = arrayOf("\n")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Essay outline",
             description = "Generate an outline for a research topic.",
@@ -424,8 +737,14 @@ val taskList by lazy {
             nameColor = R.color.md_blue_dark,
             descriptionColor = R.color.md_blue_400,
             iconColor = R.color.md_blue_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.0,
+            maxTokens = 150,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Recipe creator (eat at your own risk)",
             description = "Create a recipe from a list of ingredients.",
@@ -434,8 +753,14 @@ val taskList by lazy {
             nameColor = R.color.md_light_blue_dark,
             descriptionColor = R.color.md_light_blue_400,
             iconColor = R.color.md_light_blue_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 120,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Chat",
             description = "Open ended conversation with an AI assistant.",
@@ -444,8 +769,15 @@ val taskList by lazy {
             nameColor = R.color.md_cyan_dark,
             descriptionColor = R.color.md_cyan_400,
             iconColor = R.color.md_cyan_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.9,
+            maxTokens = 150,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.6,
+            stop = arrayOf(" Human:", " AI:")
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Marv the sarcastic chat bot",
             description = "Marv is a factual chatbot that is also sarcastic.",
@@ -454,8 +786,14 @@ val taskList by lazy {
             nameColor = R.color.md_teal_dark,
             descriptionColor = R.color.md_teal_400,
             iconColor = R.color.md_teal_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 60,
+            topP = 0.3,
+            frequencyPenalty = 0.5,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Turn by turn directions",
             description = "Convert natural language to turn-by-turn directions.",
@@ -464,8 +802,14 @@ val taskList by lazy {
             nameColor = R.color.md_green_dark,
             descriptionColor = R.color.md_green_400,
             iconColor = R.color.md_green_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Restaurant review creator",
             description = "Turn a few words into a restaurant review.",
@@ -474,8 +818,14 @@ val taskList by lazy {
             nameColor = R.color.md_light_green_dark,
             descriptionColor = R.color.md_light_green_400,
             iconColor = R.color.md_light_green_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 64,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Create study notes",
             description = "Provide a topic and get study notes.",
@@ -484,8 +834,14 @@ val taskList by lazy {
             nameColor = R.color.md_lime_dark,
             descriptionColor = R.color.md_lime_400,
             iconColor = R.color.md_lime_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.3,
+            maxTokens = 150,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
-        Task(
+        Assistant(
             id = 6,
             name = "Interview questions",
             description = "Create interview questions.",
@@ -494,6 +850,12 @@ val taskList by lazy {
             nameColor = R.color.md_yellow_dark,
             descriptionColor = R.color.md_yellow_400,
             iconColor = R.color.md_yellow_400,
+            aiModel = OpenAiModels.TEXT_DAVINCI_002.model,
+            temperature = 0.5,
+            maxTokens = 150,
+            topP = 1.0,
+            frequencyPenalty = 0.0,
+            presencePenalty = 0.0,
         ),
     )
 }

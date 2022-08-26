@@ -9,8 +9,8 @@ import com.singularitycoder.helpme.databinding.ListItemAssistantBinding
 
 class AssistantAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var assistantsList = emptyList<Task>()
-    private var itemClickListener: (task: Task) -> Unit = {}
+    var assistantsList = emptyList<Assistant>()
+    private var itemClickListener: (assistant: Assistant) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemBinding = ListItemAssistantBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,7 +25,7 @@ class AssistantAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int = position
 
-    fun setItemClickListener(listener: (task: Task) -> Unit) {
+    fun setItemClickListener(listener: (assistant: Assistant) -> Unit) {
         itemClickListener = listener
     }
 
@@ -33,24 +33,25 @@ class AssistantAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val itemBinding: ListItemAssistantBinding,
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         @SuppressLint("SetTextI18n")
-        fun setData(task: Task) {
+        fun setData(assistant: Assistant) {
             itemBinding.apply {
                 tvTaskName.apply {
-                    text = task.name
-                    setTextColor(root.context.color(task.nameColor))
+                    text = assistant.name
+                    setTextColor(root.context.color(assistant.nameColor))
                 }
                 tvTaskDescription.apply {
-                    text = task.description
-                    setTextColor(root.context.color(task.descriptionColor))
+                    text = assistant.description
+                    setTextColor(root.context.color(assistant.descriptionColor))
                 }
                 ivTaskImage.apply {
-                    setImageDrawable(root.context.drawable(task.icon))
-                    imageTintList = ColorStateList.valueOf(root.context.color(task.iconColor))
+                    setImageDrawable(root.context.drawable(assistant.icon))
+                    imageTintList = ColorStateList.valueOf(root.context.color(assistant.iconColor))
                 }
+                ivArrowRight.imageTintList = ColorStateList.valueOf(root.context.color(assistant.iconColor))
                 root.apply {
-                    backgroundTintList = ColorStateList.valueOf(root.context.color(task.backgroundColor))
+                    backgroundTintList = ColorStateList.valueOf(root.context.color(assistant.backgroundColor))
                     setOnClickListener {
-                        itemClickListener.invoke(task)
+                        itemClickListener.invoke(assistant)
                     }
                 }
             }

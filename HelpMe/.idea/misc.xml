@@ -27,6 +27,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_api_key_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_assistant_bottom_sheet.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/list_item_assistant.xml" value="0.27927927927927926" />
         <entry key="app/src/main/res/layout/list_item_task.xml" value="0.335" />
       </map>
     </option>

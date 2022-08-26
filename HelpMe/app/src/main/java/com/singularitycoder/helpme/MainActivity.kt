@@ -60,16 +60,16 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = assistantAdapter
         }
-        assistantAdapter.assistantsList = taskList
+        assistantAdapter.assistantsList = assistantLists
     }
 
     private fun ActivityMainBinding.setupUserActionListeners() {
         etSearch.doAfterTextChanged { keyWord: Editable? ->
             ibClearSearch.isVisible = keyWord.isNullOrBlank().not()
             if (keyWord.isNullOrBlank()) {
-                assistantAdapter.assistantsList = taskList
+                assistantAdapter.assistantsList = assistantLists
             } else {
-                assistantAdapter.assistantsList = assistantAdapter.assistantsList.filter { it: Task -> it.name.contains(keyWord) }
+                assistantAdapter.assistantsList = assistantAdapter.assistantsList.filter { it: Assistant -> it.name.contains(keyWord) }
             }
             assistantAdapter.notifyDataSetChanged()
         }
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             etSearch.requestFocus()
             etSearch.hideKeyboard()
         }
-        assistantAdapter.setItemClickListener { it: Task ->
+        assistantAdapter.setItemClickListener { it: Assistant ->
         }
         ibAddApiKey.setOnClickListener {
             AddApiKeyBottomSheetFragment.newInstance().show(supportFragmentManager, TAG_ADD_API_KEY_BOTTOM_SHEET)
