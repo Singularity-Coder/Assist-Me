@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/baseline_school_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_top_rounded.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/grammar_correction.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_icons8_twitter.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_round_cancel_24.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_round_horizontal_rule_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_round_search_24.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/round_campaign_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_chat_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_emoji_emotions_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_javascript_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_key_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_language_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_local_offer_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_school_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_spatial_audio_off_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_table_chart_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_terminal_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_tips_and_updates_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_translate_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_vpn_key_24.xml" value="0.1585" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add_api_key_bottom_sheet.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_assistant_bottom_sheet.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/list_item_task.xml" value="0.335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

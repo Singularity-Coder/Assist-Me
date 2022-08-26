@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_top_rounded"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".AssistantBottomSheetFragment">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_round_horizontal_rule_24"
+        app:tint="@color/light_gray" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_question"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Question"
+        app:boxBackgroundColor="@color/black_50"
+        app:boxStrokeWidth="0dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/md_deep_purple_500"
+        app:shapeAppearance="@style/RoundSmall"
+        app:startIconContentDescription="Password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_answer"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Answer"
+        app:boxBackgroundColor="@color/black_50"
+        app:boxStrokeWidth="0dp"
+        app:endIconMode="none"
+        app:shapeAppearance="@style/RoundSmall"
+        app:startIconContentDescription="Password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_question"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/md_deep_purple_500"
+        android:elevation="0dp"
+        android:text="Assist Me"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:shapeAppearance="@style/RoundSmall" />
+</LinearLayout>

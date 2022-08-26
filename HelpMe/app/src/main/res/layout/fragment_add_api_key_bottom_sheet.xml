@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_top_rounded"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".AddApiKeyBottomSheetFragment">
+
+    <ImageView
+        android:id="@+id/iv_horizontal_rule"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_round_horizontal_rule_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/light_gray" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_api_key"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:hint="Enter OpenAI API Key"
+        app:boxBackgroundColor="@color/black_50"
+        app:boxStrokeWidth="0dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="60"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/md_deep_purple_500"
+        app:errorEnabled="true"
+        app:helperText="Minimum 50 digits"
+        app:helperTextEnabled="true"
+        app:layout_constraintEnd_toStartOf="@+id/card_add_api_key"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_horizontal_rule"
+        app:shapeAppearance="@style/RoundSmall"
+        app:startIconContentDescription="Password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLength="60"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_api_key_link"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Get API key here: beta.openai.com/account/api-keys"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_api_key"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        app:layout_constraintTop_toBottomOf="@+id/et_api_key" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_add_api_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="@color/title_color"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_api_key"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_api_key">
+
+        <ImageButton
+            android:id="@+id/ib_add_api_key"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:src="@drawable/ic_round_check_24"
+            app:tint="@color/white" />
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
