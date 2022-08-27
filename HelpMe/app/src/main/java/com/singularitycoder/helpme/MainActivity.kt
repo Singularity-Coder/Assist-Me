@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             etSearch.hideKeyboard()
         }
         assistantAdapter.setItemClickListener { it: Assistant ->
+            showScreen(AssistantDetailFragment.newInstance(it), TAG_ASSISTANT_DETAIL_FRAGMENT)
         }
         ibAddApiKey.setOnClickListener {
             AddApiKeyBottomSheetFragment.newInstance().show(supportFragmentManager, TAG_ADD_API_KEY_BOTTOM_SHEET)

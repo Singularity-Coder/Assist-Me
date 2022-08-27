@@ -1,8 +1,11 @@
 package com.singularitycoder.helpme
 
+import android.os.Parcelable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Assistant(
     val id: Long,
     val name: String,
@@ -19,4 +22,4 @@ data class Assistant(
     val frequencyPenalty: Double = 0.0,
     val presencePenalty: Double = 0.0,
     val stop: Array<String> = arrayOf()
-)
+) : Parcelable

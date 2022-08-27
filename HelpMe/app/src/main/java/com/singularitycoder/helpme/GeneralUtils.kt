@@ -18,9 +18,12 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -30,6 +33,8 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+
+const val TAG_ASSISTANT_DETAIL_FRAGMENT = "TAG_ASSISTANT_DETAIL_FRAGMENT"
 
 fun Context.color(@ColorRes colorRes: Int) = ContextCompat.getColor(this, colorRes)
 
@@ -250,6 +255,17 @@ fun EditText.disableCopyPaste() {
 fun EditText.setDigits(allowedChars: String) {
     keyListener = DigitsKeyListener.getInstance(allowedChars)
     setRawInputType(InputType.TYPE_CLASS_TEXT)
+}
+
+fun AppCompatActivity.showScreen(
+    fragment: Fragment,
+    tag: String
+) {
+    supportFragmentManager.beginTransaction()
+        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        .add(R.id.fl_container, fragment, tag)
+        .addToBackStack(null)
+        .commit()
 }
 
 enum class DateType(val value: String) {

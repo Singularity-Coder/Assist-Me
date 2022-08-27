@@ -31,7 +31,7 @@
                 app:tint="@color/title_color" />
 
             <TextView
-                android:id="@+id/tv_add_routine_title"
+                android:id="@+id/tv_assistant_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_search"
+                android:id="@+id/et_ask_anything"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="16dp"
@@ -114,7 +114,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -130,11 +129,11 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/ib_add_api_key"
+            android:id="@+id/ib_send_text_or_voice_message"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:background="@null"
-            android:src="@drawable/ic_round_send_24"
+            android:src="@drawable/ic_round_keyboard_voice_24"
             app:tint="@color/white" />
     </com.google.android.material.card.MaterialCardView>
 

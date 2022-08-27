@@ -1,60 +1,107 @@
 package com.singularitycoder.helpme
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.singularitycoder.helpme.databinding.ListItemAssistantBinding
+import com.singularitycoder.helpme.databinding.ListItemLeftMessageBinding
+import com.singularitycoder.helpme.databinding.ListItemRightMessageBinding
+import com.singularitycoder.helpme.databinding.ListItemSpacerBinding
 
 class ChatsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var chatsList = emptyList<Assistant>()
-    private var itemClickListener: (assistant: Assistant) -> Unit = {}
+    var chatsList = emptyList<ChatMessage>()
+    private var itemLongClickListener: (chatMessage: ChatMessage) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val itemBinding = ListItemAssistantBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TaskViewHolder(itemBinding)
+        val itemRightBinding =
+            ListItemRightMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemLeftBinding =
+            ListItemLeftMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemSpacerBinding =
+            ListItemSpacerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return when (viewType) {
+            ChatItem.RIGHT.ordinal -> RightMessageViewHolder(itemRightBinding)
+            ChatItem.LEFT.ordinal -> LeftMessageViewHolder(itemLeftBinding)
+            else -> SpacerViewHolder(itemSpacerBinding)
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as TaskViewHolder).setData(chatsList[position])
+        when (holder) {
+            is RightMessageViewHolder -> holder.setData(chatsList[position])
+            is LeftMessageViewHolder -> holder.setData(chatsList[position])
+            is SpacerViewHolder -> holder.setData(82)
+        }
     }
 
     override fun getItemCount(): Int = chatsList.size
 
-    override fun getItemViewType(position: Int): Int = position
-
-    fun setItemClickListener(listener: (assistant: Assistant) -> Unit) {
-        itemClickListener = listener
+    // Position gets messed up without itemViewType
+    // https://stackoverflow.com/questions/44932450/wrong-order-of-restored-items-in-recyclerview
+    override fun getItemViewType(position: Int): Int = when (position) {
+        0 -> ChatItem.RIGHT.ordinal
+        1 -> ChatItem.LEFT.ordinal
+        else -> ChatItem.SPACER.ordinal
     }
 
-    inner class TaskViewHolder(
-        private val itemBinding: ListItemAssistantBinding,
+    fun setItemLongClickListener(listener: (chatMessage: ChatMessage) -> Unit) {
+        itemLongClickListener = listener
+    }
+
+    inner class RightMessageViewHolder(
+        private val itemBinding: ListItemRightMessageBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        @SuppressLint("SetTextI18n")
-        fun setData(assistant: Assistant) {
+        fun setData(chatMessage: ChatMessage) {
             itemBinding.apply {
-                tvTaskName.apply {
-                    text = assistant.name
-                    setTextColor(root.context.color(assistant.nameColor))
+                tvRightMessage.text = chatMessage.message
+                tvRightMessage.setTextColor(root.context.color(chatMessage.chatTextColor))
+                ivRightHandle.setColorFilter(root.context.color(chatMessage.chatBackgroundColor))
+                cardRightMessage.backgroundTintList =
+                    ColorStateList.valueOf(root.context.color(chatMessage.chatBackgroundColor))
+                root.setOnClickListener {
+                    root.context.clipboard()?.text = tvRightMessage.text
                 }
-                tvTaskDescription.apply {
-                    text = assistant.description
-                    setTextColor(root.context.color(assistant.descriptionColor))
-                }
-                ivTaskImage.apply {
-                    setImageDrawable(root.context.drawable(assistant.icon))
-                    imageTintList = ColorStateList.valueOf(root.context.color(assistant.iconColor))
-                }
-                ivArrowRight.imageTintList = ColorStateList.valueOf(root.context.color(assistant.iconColor))
-                root.apply {
-                    backgroundTintList = ColorStateList.valueOf(root.context.color(assistant.backgroundColor))
-                    setOnClickListener {
-                        itemClickListener.invoke(assistant)
-                    }
+                root.setOnLongClickListener {
+                    itemLongClickListener.invoke(chatMessage)
+                    false
                 }
             }
         }
     }
+
+    inner class LeftMessageViewHolder(
+        private val itemBinding: ListItemLeftMessageBinding
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
+        fun setData(chatMessage: ChatMessage) {
+            itemBinding.apply {
+                tvLeftMessage.text = chatMessage.message
+                tvLeftMessage.setTextColor(root.context.color(chatMessage.chatTextColor))
+                ivLeftHandle.setColorFilter(root.context.color(chatMessage.chatBackgroundColor))
+                cardLeftMessage.backgroundTintList =
+                    ColorStateList.valueOf(root.context.color(chatMessage.chatBackgroundColor))
+                root.setOnClickListener {
+                    root.context.clipboard()?.text = tvLeftMessage.text
+                }
+                root.setOnLongClickListener {
+                    itemLongClickListener.invoke(chatMessage)
+                    false
+                }
+            }
+        }
+    }
+
+    inner class SpacerViewHolder(
+        private val itemBinding: ListItemSpacerBinding
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
+        fun setData(padding: Int) {
+            itemBinding.root.setPadding(0, 0, 0, padding)
+        }
+    }
+}
+
+enum class ChatItem {
+    LEFT,
+    RIGHT,
+    SPACER
 }
