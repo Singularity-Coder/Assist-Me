@@ -39,9 +39,9 @@ class ChatsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // Position gets messed up without itemViewType
     // https://stackoverflow.com/questions/44932450/wrong-order-of-restored-items-in-recyclerview
-    override fun getItemViewType(position: Int): Int = when (position) {
-        0 -> ChatItem.RIGHT.ordinal
-        1 -> ChatItem.LEFT.ordinal
+    override fun getItemViewType(position: Int): Int = when {
+        position == 0 || position % 2 == 0 -> ChatItem.RIGHT.ordinal
+        position % 2 != 0 -> ChatItem.LEFT.ordinal
         else -> ChatItem.SPACER.ordinal
     }
 
