@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/grammar_correction.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_icons8_twitter.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_round_cancel_24.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_round_clear_24.xml" value="0.1585" />
         <entry key="app/src/main/res/drawable/ic_round_horizontal_rule_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_round_search_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/round_campaign_24.xml" value="0.1" />
@@ -23,11 +24,15 @@
         <entry key="app/src/main/res/drawable/round_terminal_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/round_tips_and_updates_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/round_translate_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/round_tune_24.xml" value="0.1585" />
         <entry key="app/src/main/res/drawable/round_vpn_key_24.xml" value="0.1585" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_api_key_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_assistant_bottom_sheet.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_assistant_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/list_item_assistant.xml" value="0.27927927927927926" />
+        <entry key="app/src/main/res/layout/list_item_message.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/list_item_right_message.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/list_item_task.xml" value="0.335" />
       </map>
     </option>

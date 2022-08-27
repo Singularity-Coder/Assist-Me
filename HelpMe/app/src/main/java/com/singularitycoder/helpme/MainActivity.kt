@@ -15,6 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 // 2. Text to Video
 // 3. Text to concept art - The way DALL-E does
 
+// TODO next
+// Compose Desktop version will be more useful - Looks like WhatsApp Desktop - Filters on the right
+//
+
 // https://beta.openai.com/examples
 // https://beta.openai.com/overview
 // https://beta.openai.com/docs/quickstart/build-your-application
@@ -30,13 +34,10 @@ import dagger.hilt.android.AndroidEntryPoint
 // Task bottom sheet settings - hide show in the view
 
 // Engine dropdown
-// Scrollable
 // Network connectivity check
-// Input for question - Ask me anything
-// Answer section
-
 
 // API call Ktor
+// Store responses in DB
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ActivityMainBinding.setupUI() {
-        rvTasks.apply {
+        rvAssistants.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = assistantAdapter
         }
