@@ -12,7 +12,7 @@
             android:id="@+id/iv_left_handle"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginStart="-6dp"
+            android:layout_marginStart="-4dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_left_handle"
             app:layout_constraintStart_toStartOf="parent"

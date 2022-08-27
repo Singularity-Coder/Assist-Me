@@ -95,7 +95,7 @@ class ChatsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val itemBinding: ListItemSpacerBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         fun setData(padding: Int) {
-            itemBinding.root.setPadding(0, 0, 0, padding)
+            itemBinding.root.setPadding(0, 0, 0, padding.dpToPx())
         }
     }
 }
