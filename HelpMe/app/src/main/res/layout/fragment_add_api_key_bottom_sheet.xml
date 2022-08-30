@@ -34,7 +34,7 @@
         app:counterEnabled="true"
         app:counterMaxLength="60"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/md_deep_purple_500"
+        app:endIconTint="@color/title_color"
         app:errorEnabled="true"
         app:helperText="Minimum 50 digits"
         app:helperTextEnabled="true"

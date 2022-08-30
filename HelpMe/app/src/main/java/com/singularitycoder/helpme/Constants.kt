@@ -49,7 +49,11 @@ enum class OpenAiModels(val model: String) {
     CURIE(model = "curie"),
     BABBAGE(model = "babbage"),
     ADA(model = "ada"),
-    CURIE_SIMILARITY_FAST(model = "curie-similarity-fast"),
+    CURIE_SIMILARITY_FAST(model = "curie-similarity-fast");
+
+    companion object {
+        fun getModels(): List<String> = values().map { it.model }
+    }
 }
 
 // Is there a way to iterate over color values?

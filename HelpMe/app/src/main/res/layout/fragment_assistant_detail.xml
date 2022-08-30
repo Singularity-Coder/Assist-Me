@@ -79,6 +79,22 @@
         app:layout_constraintTop_toBottomOf="@+id/card_toolbar"
         tools:listitem="@layout/list_item_left_message" />
 
+    <HorizontalScrollView
+        android:id="@+id/scroll_view_default_requests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/card_ask_anything">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_default_requests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:singleLine="true" />
+    </HorizontalScrollView>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_ask_anything"
         android:layout_width="0dp"
@@ -97,16 +113,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:maxHeight="208dp"
-            android:minHeight="44dp">
+            android:minHeight="44dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageButton
+                android:id="@+id/ib_default_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_auto_fix_normal_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/title_color" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_ask_anything"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@null"
                 android:enabled="true"
@@ -115,10 +143,10 @@
                 android:textColor="@color/title_color"
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toEndOf="@+id/ib_default_request"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

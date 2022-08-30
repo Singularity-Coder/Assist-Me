@@ -50,7 +50,7 @@
                 app:boxStrokeWidth="0dp"
                 app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
                 app:endIconMode="custom"
-                app:endIconTint="@color/md_deep_purple_500"
+                app:endIconTint="@color/title_color"
                 app:shapeAppearance="@style/RoundSmall"
                 app:startIconContentDescription="Password">
 
@@ -72,7 +72,7 @@
                 app:boxBackgroundColor="@color/black_50"
                 app:boxStrokeWidth="0dp"
                 app:endIconMode="clear_text"
-                app:endIconTint="@color/md_deep_purple_500"
+                app:endIconTint="@color/title_color"
                 app:shapeAppearance="@style/RoundSmall"
                 app:startIconContentDescription="Password">
 
@@ -82,120 +82,35 @@
                     android:inputType="textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/layout_slider_temperature"
+                layout="@layout/layout_custom_slider"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@android:color/darker_gray"
-                android:text="Temperature" />
+                android:layout_width="match_parent"/>
 
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_discrete_temperature"
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/layout_slider_max_length"
+                layout="@layout/layout_custom_slider"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_rounded_slider"
-                android:contentDescription="Discrete Slider"
-                android:labelFor="@+id/tv_result"
-                android:stepSize="1.0"
-                android:value="3.0"
-                android:valueFrom="1.0"
-                android:valueTo="100.0"
-                app:labelBehavior="gone" />
+                android:layout_width="match_parent"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/layout_slider_top_p"
+                layout="@layout/layout_custom_slider"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@android:color/darker_gray"
-                android:text="Maximum Length" />
+                android:layout_width="match_parent"/>
 
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_discrete_max_tokens"
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/layout_slider_frequency_penalty"
+                layout="@layout/layout_custom_slider"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_rounded_slider"
-                android:contentDescription="Max Tokens"
-                android:labelFor="@+id/tv_result"
-                android:stepSize="1"
-                android:value="3"
-                android:valueFrom="1"
-                android:valueTo="4000"
-                app:labelBehavior="gone" />
+                android:layout_width="match_parent"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/layout_slider_presence_penalty"
+                layout="@layout/layout_custom_slider"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@android:color/darker_gray"
-                android:text="Top P" />
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_discrete_top_p"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_rounded_slider"
-                android:contentDescription="Top P"
-                android:labelFor="@+id/tv_result"
-                android:stepSize="0.01"
-                android:value="0"
-                android:valueFrom="0"
-                android:valueTo="1"
-                app:labelBehavior="gone" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@android:color/darker_gray"
-                android:text="Frequency penalty" />
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_discrete_frequency_penalty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_rounded_slider"
-                android:contentDescription="Frequency penalty"
-                android:labelFor="@+id/tv_result"
-                android:stepSize="0.01"
-                android:value="0"
-                android:valueFrom="0"
-                android:valueTo="2"
-                app:labelBehavior="gone" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@android:color/darker_gray"
-                android:text="Presence penalty" />
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_discrete_presence_penalty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_rounded_slider"
-                android:contentDescription="Presence penalty"
-                android:labelFor="@+id/tv_result"
-                android:stepSize="0.01"
-                android:value="0"
-                android:valueFrom="0"
-                android:valueTo="2"
-                app:labelBehavior="gone" />
+                android:layout_width="match_parent"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_set_filters"
@@ -203,8 +118,8 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:elevation="0dp"
                 android:backgroundTint="@color/title_color"
+                android:elevation="0dp"
                 android:foregroundGravity="right"
                 android:text="    Set Filters    "
                 android:textAllCaps="false"
@@ -213,14 +128,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_reset_filters"
-                android:layout_width="wrap_content"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="32dp"
                 android:elevation="0dp"
                 android:foregroundGravity="right"
                 android:text="  Reset Filters  "
-                android:layout_marginBottom="32dp"
                 android:textAllCaps="false"
                 android:textColor="@color/title_color"
                 app:shapeAppearance="@style/RoundSmall" />

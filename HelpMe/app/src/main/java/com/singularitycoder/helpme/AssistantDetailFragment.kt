@@ -2,6 +2,7 @@ package com.singularitycoder.helpme
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.text.Editable
@@ -10,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.singularitycoder.helpme.databinding.FragmentAssistantDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -69,6 +72,39 @@ class AssistantDetailFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = chatsAdapter
         }
+        chatsAdapter.chatsList = chatsList.apply {
+            add(
+                ChatMessage(
+                    id = 0,
+                    message = "Summarize this for a second-grade student:\n\nJupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun, but two-and-a-half times that of all the other planets in the Solar System combined.",
+                    chatItem = ChatItem.RIGHT,
+                    chatTextColor = R.color.title_color,
+                    chatBackgroundColor = R.color.black_50
+                )
+            )
+            add(
+                ChatMessage(
+                    id = 0,
+                    message = "Jupiter is a gas planet that is fifth from the sun and is bigger than any other planet in our solar system.",
+                    chatItem = ChatItem.LEFT,
+                    chatTextColor = assistantParam?.nameColor ?: 0,
+                    chatBackgroundColor = assistantParam?.backgroundColor ?: 0
+                )
+            )
+        }
+        listOf("Request 1", "Request 2", "Request 3").forEach { it: String ->
+            val chip = Chip(requireContext()).apply {
+                text = it
+                isCheckable = false
+                isClickable = false
+                chipBackgroundColor = ColorStateList.valueOf(requireContext().color(R.color.black_50))
+                setTextColor(requireContext().color(R.color.title_color))
+                elevation = 2f
+                setOnClickListener {
+                }
+            }
+            binding.chipGroupDefaultRequests.addView(chip)
+        }
     }
 
     private fun FragmentAssistantDetailBinding.setupUserActionListeners() {
@@ -87,6 +123,9 @@ class AssistantDetailFragment : Fragment() {
         }
         ibSettings.setOnClickListener {
             AssistantSettingsBottomSheetFragment.newInstance().show(requireActivity().supportFragmentManager, TAG_ASSISTANT_SETTINGS_BOTTOM_SHEET)
+        }
+        ibDefaultRequest.setOnClickListener {
+            scrollViewDefaultRequests.isVisible = scrollViewDefaultRequests.isVisible.not()
         }
         ibSendTextOrVoiceMessage.setOnClickListener {
             if (etAskAnything.text.isNullOrBlank()) {
