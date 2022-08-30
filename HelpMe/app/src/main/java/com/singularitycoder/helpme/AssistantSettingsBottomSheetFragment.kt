@@ -9,25 +9,25 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
-import com.singularitycoder.helpme.databinding.FragmentAssistantBottomSheetBinding
+import com.singularitycoder.helpme.databinding.FragmentAssistantSettingsBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AssistantBottomSheetFragment : BottomSheetDialogFragment() {
+class AssistantSettingsBottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = AssistantBottomSheetFragment()
+        fun newInstance() = AssistantSettingsBottomSheetFragment()
     }
 
-    private lateinit var binding: FragmentAssistantBottomSheetBinding
+    private lateinit var binding: FragmentAssistantSettingsBottomSheetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAssistantBottomSheetBinding.inflate(inflater, container, false)
+        binding = FragmentAssistantSettingsBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,26 +43,23 @@ class AssistantBottomSheetFragment : BottomSheetDialogFragment() {
         super.onCancel(dialog)
     }
 
-    private fun FragmentAssistantBottomSheetBinding.setupUserActionListeners() {
-        etQuestion.doTextFieldEmptyValidation()
-        etQuestion.setBoxStrokeOnFocusChange()
+    private fun FragmentAssistantSettingsBottomSheetBinding.setupUserActionListeners() {
+        etSetStopSequences.doTextFieldEmptyValidation()
+        etSetStopSequences.setBoxStrokeOnFocusChange()
 
-        tvAnswer.doTextFieldEmptyValidation()
-        tvAnswer.setBoxStrokeOnFocusChange()
-
-        btnAddQuestion.setOnClickListener {
+        btnSetFilters.setOnClickListener {
             if (isValidateInput().not()) return@setOnClickListener
             dismiss()
         }
     }
 
-    private fun FragmentAssistantBottomSheetBinding.observeForData() {
+    private fun FragmentAssistantSettingsBottomSheetBinding.observeForData() {
     }
 
-    private fun FragmentAssistantBottomSheetBinding.isValidateInput(): Boolean {
-        if (etQuestion.editText?.text.isNullOrBlank()) {
-            etQuestion.boxStrokeWidth = 2.dpToPx()
-            etQuestion.error = "This is required!"
+    private fun FragmentAssistantSettingsBottomSheetBinding.isValidateInput(): Boolean {
+        if (etSetStopSequences.editText?.text.isNullOrBlank()) {
+            etSetStopSequences.boxStrokeWidth = 2.dpToPx()
+            etSetStopSequences.error = "This is required!"
             return false
         }
 

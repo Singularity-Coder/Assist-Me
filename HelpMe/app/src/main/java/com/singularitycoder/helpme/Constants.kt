@@ -1,6 +1,7 @@
 package com.singularitycoder.helpme
 
 const val TAG_ADD_API_KEY_BOTTOM_SHEET = "TAG_ADD_API_KEY_BOTTOM_SHEET"
+const val TAG_ASSISTANT_SETTINGS_BOTTOM_SHEET = "TAG_ASSISTANT_SETTINGS_BOTTOM_SHEET"
 
 val temperatureRange = (0.0)..(1.0)
 val lengthRange = 1..2048

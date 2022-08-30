@@ -86,7 +86,7 @@ class AssistantDetailFragment : Fragment() {
             activity?.supportFragmentManager?.popBackStackImmediate()
         }
         ibSettings.setOnClickListener {
-
+            AssistantSettingsBottomSheetFragment.newInstance().show(requireActivity().supportFragmentManager, TAG_ASSISTANT_SETTINGS_BOTTOM_SHEET)
         }
         ibSendTextOrVoiceMessage.setOnClickListener {
             if (etAskAnything.text.isNullOrBlank()) {
