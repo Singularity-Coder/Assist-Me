@@ -33,7 +33,7 @@
         <entry key="app/src/main/res/layout/fragment_assistant_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_assistant_detail.xml" value="0.19310344827586207" />
         <entry key="app/src/main/res/layout/fragment_assistant_settings_bottom_sheet.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/layout_custom_slider.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/layout_custom_slider.xml" value="0.25" />
         <entry key="app/src/main/res/layout/list_item_assistant.xml" value="0.27927927927927926" />
         <entry key="app/src/main/res/layout/list_item_left_message.xml" value="0.165" />
         <entry key="app/src/main/res/layout/list_item_message.xml" value="0.25" />
