@@ -1,5 +1,6 @@
+![alt text](https://github.com/Singularity-Coder/Assist-Me/blob/main/assets/logo192.png)
 # Assist Me
-Extend your senses with AI!
+Extend your mind with AI!
 
 ## Concept
 The idea is to create backend APIs for the new Open AI's GPT3 Model with NodeJS and consume them with the Android Client.
