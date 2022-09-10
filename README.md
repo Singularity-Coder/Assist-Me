@@ -1,4 +1,4 @@
-![alt text](https://github.com/Singularity-Coder/Assist-Me/blob/main/assets/logo192.png)
+![alt text](https://github.com/Singularity-Coder/Assist-Me/blob/main/assets/logoo192.png)
 # Assist Me
 Extend your mind with AI!
 
